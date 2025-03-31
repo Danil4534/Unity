@@ -31,7 +31,7 @@ public class ChangeScene : MonoBehaviour
             UnitRoot.Instance.rb.simulated = true;
             UnitRoot.Instance.LoadKeyBindings();
             UnitRoot.Instance.gameObject.SetActive(true);
-            //UnitRoot.Instance.UpdateHealthUI();
+            UnitRoot.Instance.UpdateHealthUI();
         }
         SceneManager.LoadScene(scene);
 

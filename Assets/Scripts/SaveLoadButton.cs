@@ -17,17 +17,17 @@ public class SaveLoadButton : MonoBehaviour
 
     void Start()
     {
-        slot1Info.text = $"X: {PlayerPrefs.GetFloat("Hero_PosX_Slot1", 0):F2} | Y: {PlayerPrefs.GetFloat("Hero_PosY_Slot1", 0):F2} | Hearts: {PlayerPrefs.GetFloat("Hero_Health_Slot1", 0):F2}";
-        saveSlot1Button.onClick.AddListener(() => SaveGame(1));
-        LoadSlot1Button.onClick.AddListener(() => LoadGame(1));
+        //slot1Info.text = $"X: {PlayerPrefs.GetFloat("Hero_PosX_Slot1", 0):F2} | Y: {PlayerPrefs.GetFloat("Hero_PosY_Slot1", 0):F2} | Hearts: {PlayerPrefs.GetFloat("Hero_Health_Slot1", 0):F2}";
+        //saveSlot1Button.onClick.AddListener(() => SaveGame(1));
+        //LoadSlot1Button.onClick.AddListener(() => LoadGame(1));
 
-        slot2Info.text = $"X: {PlayerPrefs.GetFloat("Hero_PosX_Slot2", 0):F2} | Y: {PlayerPrefs.GetFloat("Hero_PosY_Slot2", 0):F2} | Hearts: {PlayerPrefs.GetFloat("Hero_Health_Slot2", 0):F2}";
-        saveSlot2Button.onClick.AddListener(() => SaveGame(2));
-        LoadSlot2Button.onClick.AddListener(() => LoadGame(2));
+        //slot2Info.text = $"X: {PlayerPrefs.GetFloat("Hero_PosX_Slot2", 0):F2} | Y: {PlayerPrefs.GetFloat("Hero_PosY_Slot2", 0):F2} | Hearts: {PlayerPrefs.GetFloat("Hero_Health_Slot2", 0):F2}";
+        //saveSlot2Button.onClick.AddListener(() => SaveGame(2));
+        //LoadSlot2Button.onClick.AddListener(() => LoadGame(2));
 
-        slot3Info.text = $"X: {PlayerPrefs.GetFloat("Hero_PosX_Slot3", 0):F2} | Y:{PlayerPrefs.GetFloat("Hero_PosY_Slot3", 0):F2} | Hearts: {PlayerPrefs.GetFloat("Hero_Health_Slot3", 0):F2}";
-        saveSlot3Button.onClick.AddListener(() => SaveGame(3));
-        LoadSlot3Button.onClick.AddListener(() => LoadGame(3));
+        //slot3Info.text = $"X: {PlayerPrefs.GetFloat("Hero_PosX_Slot3", 0):F2} | Y:{PlayerPrefs.GetFloat("Hero_PosY_Slot3", 0):F2} | Hearts: {PlayerPrefs.GetFloat("Hero_Health_Slot3", 0):F2}";
+        //saveSlot3Button.onClick.AddListener(() => SaveGame(3));
+        //LoadSlot3Button.onClick.AddListener(() => LoadGame(3));
     }
 
     public void SaveGame(int slot)

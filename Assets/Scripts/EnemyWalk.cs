@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (isDead) return;
-       
+        if (isDead || UnitRoot.Instance == null) return;
 
         if (collision.gameObject == UnitRoot.Instance.gameObject)
         {

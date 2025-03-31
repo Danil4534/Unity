@@ -18,24 +18,17 @@ public class LevelMechanism : MonoBehaviour
 
     void Start()
     {
-      
-        if (level1Info != null) level1Info.text = PlayerPrefs.GetString("LevelStatus" + 1, "Play");
-        else Debug.LogError("level1Info is not assigned!");
+        //for (int i = 1; i <= 6; i++)
+        //{
+        //    Debug.Log($"LevelStatus{i}: {PlayerPrefs.GetString("LevelStatus" + i, "Play")}");
+        //}
+        //level1Info.text = PlayerPrefs.GetString("LevelStatus" + 1, "Play");
+        //level2Info.text = PlayerPrefs.GetString("LevelStatus" + 2, "Play");
+        //level3Info.text = PlayerPrefs.GetString("LevelStatus" + 3, "Play");
+        //level4Info.text = PlayerPrefs.GetString("LevelStatus" + 4, "Play");
+        //level5Info.text = PlayerPrefs.GetString("LevelStatus" + 5, "Play");
+        //level6Info.text = PlayerPrefs.GetString("LevelStatus" + 6, "Play");
 
-        if (level2Info != null) level2Info.text = PlayerPrefs.GetString("LevelStatus" + 2, "Play");
-        else Debug.LogError("level2Info is not assigned!");
-
-        if (level3Info != null) level3Info.text = PlayerPrefs.GetString("LevelStatus" + 3, "Play");
-        else Debug.LogError("level3Info is not assigned!");
-
-        if (level4Info != null) level4Info.text = PlayerPrefs.GetString("LevelStatus" + 4, "Play");
-        else Debug.LogError("level4Info is not assigned!");
-
-        if (level5Info != null) level5Info.text = PlayerPrefs.GetString("LevelStatus" + 5, "Play");
-        else Debug.LogError("level5Info is not assigned!");
-
-        if (level6Info != null) level6Info.text = PlayerPrefs.GetString("LevelStatus" + 6, "Play");
-        else Debug.LogError("level6Info is not assigned!");
     }
 
     public void Level(int level)
@@ -48,36 +41,59 @@ public class LevelMechanism : MonoBehaviour
         switch (level)
         {
             case 1:
+                SceneManager.LoadScene("SampleScene");
                 UnitRoot.Instance.transform.position = new Vector3(108, 10, 0);
+                UnitRoot.Instance.isPaused = false;
+                UnitRoot.Instance.rb.simulated = true;
+                UnitRoot.Instance.gameObject.SetActive(true);
+         
                 break;
             case 2:
-                UnitRoot.Instance.transform.position = new Vector3(-34, 2, 1);
+                SceneManager.LoadScene("SampleScene");
+                UnitRoot.Instance.transform.position = new Vector3(104.5f, 0.997264f, 1);
+                UnitRoot.Instance.isPaused = false;
+                UnitRoot.Instance.rb.simulated = true;
+                UnitRoot.Instance.gameObject.SetActive(true);
+               
                 break;
             case 3:
-                UnitRoot.Instance.transform.position = new Vector3(5, -6.25f, 0);
+                SceneManager.LoadScene("SampleScene");
+                UnitRoot.Instance.transform.position = new Vector3(10, -17.7f, -0.16f);
+                UnitRoot.Instance.isPaused = false;
+                UnitRoot.Instance.rb.simulated = true;
+                UnitRoot.Instance.gameObject.SetActive(true);
+                
                 break;
             case 4:
-                UnitRoot.Instance.transform.position = new Vector3(-31.32f, -10.72f, 0);
+                SceneManager.LoadScene("SampleScene");
+                UnitRoot.Instance.transform.position = new Vector3(-15.27981f, -24.00274f, 0);
+                UnitRoot.Instance.isPaused = false;
+                UnitRoot.Instance.rb.simulated = true;
+                UnitRoot.Instance.gameObject.SetActive(true);
+              
                 break;
             case 5:
-                UnitRoot.Instance.transform.position = new Vector3(-52.04f, -7.84f, 0);
+                SceneManager.LoadScene("SampleScene");
+                UnitRoot.Instance.transform.position = new Vector3(110.1f, -16.00037f, 0);
+                UnitRoot.Instance.isPaused = false;
+                UnitRoot.Instance.rb.simulated = true;
+                UnitRoot.Instance.gameObject.SetActive(true);
+              
                 break;
             case 6:
-                UnitRoot.Instance.transform.position = new Vector3(-58.47f, 3.21f, 0);
+                SceneManager.LoadScene("SampleScene");
+                UnitRoot.Instance.transform.position = new Vector3(159.1858f, 1.99959f, 0);
+                UnitRoot.Instance.isPaused = false;
+                UnitRoot.Instance.rb.simulated = true;
+                UnitRoot.Instance.gameObject.SetActive(true);
+              
                 break;
             default:
                 Debug.LogWarning("Invalid level number: " + level);
                 return;
         }
 
-        if (!string.IsNullOrEmpty(scene))
-        {
-            SceneManager.LoadScene(scene);
-        }
-        else
-        {
-            Debug.LogError("Scene name is not assigned!");
-        }
+        
     }
 
     public void ChangeScene(string scene)

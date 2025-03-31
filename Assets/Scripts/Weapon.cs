@@ -25,7 +25,8 @@ public class Weapon : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject == UnitRoot.Instance.gameObject)
+        if ( UnitRoot.Instance == null) return;
+        if (collision.gameObject == UnitRoot.Instance.gameObject)
         {
           if(typeWeapon == "handWeapon")
             {

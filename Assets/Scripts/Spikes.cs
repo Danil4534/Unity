@@ -11,6 +11,7 @@ public class Spikes : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if ( UnitRoot.Instance == null) return;
         if (collision.gameObject == UnitRoot.Instance.gameObject)
         {
             UnitRoot.Instance.GetDamage(spikeDamage);
