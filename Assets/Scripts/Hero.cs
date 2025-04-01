@@ -46,11 +46,7 @@ public class UnitRoot : NetworkBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        //else
-        //{
-        //    Destroy(gameObject);
-        //    return;
-        //}
+     
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -67,17 +63,24 @@ public class UnitRoot : NetworkBehaviour
 
     private void Start()
     {
-        if (IsServer) // Сервер создает персонажей для всех игроков
+        if (!IsOwner) return; 
+
+        CameraControllers cameraController = FindObjectOfType<CameraControllers>();
+        if (cameraController != null)
+        {
+            cameraController.SetTarget(transform); 
+        }
+        if (IsServer) 
         {
             NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-            SpawnPlayerForClientServerRpc(OwnerClientId);  // Спавн персонажа только для текущего клиента
+            SpawnPlayerForClientServerRpc(OwnerClientId); 
         }
     }
 
 
     private void OnClientConnected(ulong clientId)
     {
-        if (IsServer && clientId != NetworkManager.Singleton.LocalClientId) // Создаём персонажа только для новых клиентов
+        if (IsServer && clientId != NetworkManager.Singleton.LocalClientId)
         {
             Debug.Log($"Client connected: {clientId}");
             SpawnPlayerForClientServerRpc(clientId);
@@ -105,21 +108,20 @@ public class UnitRoot : NetworkBehaviour
 
     public void LoadKeyBindings()
     {
-        keyBindings["MoveLeft"] = ParseKeyCode(PlayerPrefs.GetString("MoveLeftKey", "A"));
-        keyBindings["MoveRight"] = ParseKeyCode(PlayerPrefs.GetString("MoveRightKey", "D"));
-        keyBindings["Jump"] = ParseKeyCode(PlayerPrefs.GetString("JumpKey", "Space"));
-        keyBindings["Attack"] = ParseKeyCode(PlayerPrefs.GetString("AttackKey", "Mouse0"));
+        keyBindings["MoveLeft"] = ParseKeyCode(PlayerPrefs.GetString("MoveLeftKey", "A")) ?? KeyCode.A;
+        keyBindings["MoveRight"] = ParseKeyCode(PlayerPrefs.GetString("MoveRightKey", "D")) ?? KeyCode.D;
+        keyBindings["Jump"] = ParseKeyCode(PlayerPrefs.GetString("JumpKey", "Space")) ?? KeyCode.Space;
+        keyBindings["Attack"] = ParseKeyCode(PlayerPrefs.GetString("AttackKey", "Mouse0")) ?? KeyCode.Mouse0;
     }
 
-    private KeyCode ParseKeyCode(string key)
+    private KeyCode? ParseKeyCode(string key)
     {
         if (Enum.TryParse(key.ToUpper(), out KeyCode result))
         {
             return result;
         }
-        return KeyCode.A;
+        return null;  
     }
-
     private void Update()
     {
         if (isPaused || isDead || !IsOwner) return;
@@ -152,6 +154,7 @@ public class UnitRoot : NetworkBehaviour
     private void MoveServerRpc(int direction)
     {
         MoveClientRpc(direction);
+        animator.SetBool("1_Move", false);
     }
 
     [ClientRpc]
@@ -181,6 +184,7 @@ public class UnitRoot : NetworkBehaviour
     private void AttackServerRpc()
     {
         AttackClientRpc();
+        animator.SetBool("2_Attack", true);
     }
 
     [ClientRpc]

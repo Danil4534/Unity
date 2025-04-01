@@ -76,12 +76,6 @@ public class BindingKey : MonoBehaviour
         {
           PlayerPrefs.SetString("AttackKey", attack);
         }
-        //if (!string.IsNullOrEmpty(defend))
-        //{
-        //  PlayerPrefs.SetString("DefendKey", defend);
-        //}
-        //UnitRoot.Instance.isPaused = true;
-        //UnitRoot.Instance.rb.simulated = false;
         PlayerPrefs.Save();
         LoadSavedKeys();
     }

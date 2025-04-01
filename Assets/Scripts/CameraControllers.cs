@@ -4,27 +4,40 @@ public class CameraControllers : MonoBehaviour
 {
     [SerializeField] public Transform player;
     private Vector3 pos;
-
+    private void Start()
+    {
+        FindLocalPlayer(); 
+    }
+    private void FindLocalPlayer()
+    {
+        var players = FindObjectsOfType<UnitRoot>();
+        foreach (var p in players)
+        {
+            if (p.IsOwner) 
+            {
+                SetTarget(p.transform);
+                break;
+            }
+        }
+    }
+    public void SetTarget(Transform newTarget)
+    {
+        player = newTarget;
+    }
     private void Awake()
     {
-        //if (!player)
-        //{
-
-        //    player = FindObjectOfType<UnitRoot>()?.transform;
-
-        //    if (player == null)
-        //    {
-        //        Debug.LogError("UnitRoot не найден! Убедитесь, что объект с компонентом UnitRoot существует в сцене.");
-        //    }
-        //}
+        if (!player)
+        {
+            player = FindObjectOfType<UnitRoot>()?.transform;
+        }
     }
 
     private void Update()
     {
-        //if (player == null) return;
+        if (player == null) return;
 
-        //pos = player.position;
-        //pos.z = -10f;
-        //transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime);
+        pos = player.position;
+        pos.z = -10f;
+        transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime);
     }
 }

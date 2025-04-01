@@ -1,11 +1,15 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class Weapon : MonoBehaviour
+public class Weapon : NetworkBehaviour
 {
     public static Weapon Instance { get; private set; }
     private SpriteRenderer spriteRenderer;
     public Sprite weaponSprite;
     [SerializeField] public string typeWeapon;
+
+    
+    private NetworkVariable<bool> isPickedUp = new NetworkVariable<bool>(false);
 
     void Start()
     {
@@ -19,31 +23,39 @@ public class Weapon : MonoBehaviour
         {
             Instance = this;
         }
-       
-      
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ( UnitRoot.Instance == null) return;
+        if (!IsServer) return;  
+
+        if (UnitRoot.Instance == null) return;
         if (collision.gameObject == UnitRoot.Instance.gameObject)
         {
-          if(typeWeapon == "handWeapon")
+  
+            if (typeWeapon == "handWeapon")
             {
                 UnitRoot.Instance.leftHandWithWeapon.sprite = weaponSprite;
-                
-            }  
-           if(typeWeapon == "shieldWeapon")
+            }
+            if (typeWeapon == "shieldWeapon")
             {
                 UnitRoot.Instance.rightHandWithShield.sprite = weaponSprite;
             }
-           
+
+            isPickedUp.Value = true;
+
+            PickupWeaponClientRpc();
+
             spriteRenderer.enabled = false;
             Destroy(gameObject);
         }
     }
-    void Update()
+
+
+    [ClientRpc]
+    private void PickupWeaponClientRpc()
     {
-        
+        if (!IsOwner) return;  
+        spriteRenderer.enabled = false;  
     }
 }
